@@ -50,10 +50,10 @@ public class KeyHandler implements DeviceKeyHandler {
     // Supported scancodes
     private static final int GESTURE_CIRCLE_SCANCODE = 250;
     private static final int GESTURE_SWIPE_DOWN_SCANCODE = 251;
-    private static final int GESTURE_V_SCANCODE = 252;
+    private static final int GESTURE_V_UP_SCANCODE = 252;
     private static final int GESTURE_LTR_SCANCODE = 253;
     private static final int GESTURE_GTR_SCANCODE = 254;
-    private static final int GESTURE_V_UP_SCANCODE = 255;
+    private static final int GESTURE_V_SCANCODE = 255;
     // Slider
     private static final int MODE_TOTAL_SILENCE = 600;
     private static final int MODE_ALARMS_ONLY = 601;
@@ -65,10 +65,10 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int[] sSupportedGestures = new int[]{
         GESTURE_CIRCLE_SCANCODE,
         GESTURE_SWIPE_DOWN_SCANCODE,
-        GESTURE_V_SCANCODE,
         GESTURE_V_UP_SCANCODE,
         GESTURE_LTR_SCANCODE,
         GESTURE_GTR_SCANCODE,
+        GESTURE_V_SCANCODE,
         MODE_TOTAL_SILENCE,
         MODE_ALARMS_ONLY,
         MODE_PRIORITY_ONLY,
@@ -173,7 +173,7 @@ public class KeyHandler implements DeviceKeyHandler {
                 setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
                 break;
             }
-            
+
             if (action == null || action != null && action.equals(ActionConstants.ACTION_NULL)) {
                 return;
             }
