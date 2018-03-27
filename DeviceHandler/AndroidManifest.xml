@@ -10,8 +10,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-sdk
-            android:minSdkVersion="18"
-            android:targetSdkVersion="19" />
+            android:minSdkVersion="24" />
 
     <application
             android:icon="@android:drawable/sym_def_app_icon"
