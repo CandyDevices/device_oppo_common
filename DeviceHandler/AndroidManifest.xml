@@ -11,7 +11,7 @@
 
     <uses-sdk
             android:minSdkVersion="18"
-            android:targetSdkVersion="19" />
+            android:targetSdkVersion="21" />
 
     <application
             android:icon="@android:drawable/sym_def_app_icon"
@@ -54,6 +54,8 @@
         <receiver android:name=".BootReceiver" >
           <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.PRE_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.SCREEN_CAMERA_GESTURE" />
           </intent-filter>
         </receiver>
 

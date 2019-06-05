@@ -36,39 +36,25 @@ import com.slim.device.util.FileUtils;
 public class SliderSettings extends PreferenceActivity
         implements OnPreferenceChangeListener {
 
-    private static final String KEY_SLIDER_MODE_TOP = "slider_mode_top";
-    private static final String KEY_SLIDER_MODE_CENTER = "slider_mode_center";
-    private static final String KEY_SLIDER_MODE_BOTTOM = "slider_mode_bottom";
+    private ListPreference mSliderTop;
+    private ListPreference mSliderMiddle;
+    private ListPreference mSliderBottom;
 
-    private ListPreference mSliderModeTop;
-    private ListPreference mSliderModeCenter;
-    private ListPreference mSliderModeBottom;
+    public static final String SLIDER_DEFAULT_VALUE = "4,2,0";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.slider_panel);
 
-        mSliderModeTop = (ListPreference) findPreference(KEY_SLIDER_MODE_TOP);
-        mSliderModeTop.setOnPreferenceChangeListener(this);
-        int sliderModeTop = getSliderAction(0);
-        int valueIndex = mSliderModeTop.findIndexOfValue(String.valueOf(sliderModeTop));
-        mSliderModeTop.setValueIndex(valueIndex);
-        mSliderModeTop.setSummary(mSliderModeTop.getEntries()[valueIndex]);
+        mSliderTop = (ListPreference) findPreference("keycode_top_position");
+        mSliderTop.setOnPreferenceChangeListener(this);
 
-        mSliderModeCenter = (ListPreference) findPreference(KEY_SLIDER_MODE_CENTER);
-        mSliderModeCenter.setOnPreferenceChangeListener(this);
-        int sliderModeCenter = getSliderAction(1);
-        valueIndex = mSliderModeCenter.findIndexOfValue(String.valueOf(sliderModeCenter));
-        mSliderModeCenter.setValueIndex(valueIndex);
-        mSliderModeCenter.setSummary(mSliderModeCenter.getEntries()[valueIndex]);
+        mSliderMiddle = (ListPreference) findPreference("keycode_middle_position");
+        mSliderMiddle.setOnPreferenceChangeListener(this);
 
-        mSliderModeBottom = (ListPreference) findPreference(KEY_SLIDER_MODE_BOTTOM);
-        mSliderModeBottom.setOnPreferenceChangeListener(this);
-        int sliderModeBottom = getSliderAction(2);
-        valueIndex = mSliderModeBottom.findIndexOfValue(String.valueOf(sliderModeBottom));
-        mSliderModeBottom.setValueIndex(valueIndex);
-        mSliderModeBottom.setSummary(mSliderModeBottom.getEntries()[valueIndex]);
+        mSliderBottom = (ListPreference) findPreference("keycode_bottom_position");
+        mSliderBottom.setOnPreferenceChangeListener(this);
     }
 
     private void setSummary(ListPreference preference, String file) {
@@ -81,71 +67,32 @@ public class SliderSettings extends PreferenceActivity
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-       if (preference == mSliderModeTop) {
-            String value = (String) newValue;
-            int sliderMode = Integer.valueOf(value);
-            setSliderAction(0, sliderMode);
-            int valueIndex = mSliderModeTop.findIndexOfValue(value);
-            mSliderModeTop.setSummary(mSliderModeTop.getEntries()[valueIndex]);
+        final String file;
+        if (preference == mSliderTop) {
+            file = KernelControl.KEYCODE_SLIDER_TOP;
+        } else if (preference == mSliderMiddle) {
+            file = KernelControl.KEYCODE_SLIDER_MIDDLE;
+        } else if (preference == mSliderBottom) {
+            file = KernelControl.KEYCODE_SLIDER_BOTTOM;
+        } else {
+            return false;
         }
-        if (preference == mSliderModeCenter) {
-            String value = (String) newValue;
-            int sliderMode = Integer.valueOf(value);
-            setSliderAction(1, sliderMode);
-            int valueIndex = mSliderModeCenter.findIndexOfValue(value);
-            mSliderModeCenter.setSummary(mSliderModeCenter.getEntries()[valueIndex]);
-        }
-        if (preference == mSliderModeBottom) {
-            String value = (String) newValue;
-            int sliderMode = Integer.valueOf(value);
-            setSliderAction(2, sliderMode);
-            int valueIndex = mSliderModeBottom.findIndexOfValue(value);
-            mSliderModeBottom.setSummary(mSliderModeBottom.getEntries()[valueIndex]);
-        }
+
+        FileUtils.writeLine(file, (String) newValue);
+        setSummary((ListPreference) preference, file);
+
         return true;
-    }
-
-    private int getSliderAction(int position) {
-        String value = Settings.System.getString(getContentResolver(),
-                    Settings.System.BUTTON_EXTRA_KEY_MAPPING);
-        final String defaultValue = "5,3,0";
-
-        if (value == null) {
-            value = defaultValue;
-        } else if (value.indexOf(",") == -1) {
-            value = defaultValue;
-        }
-        try {
-            String[] parts = value.split(",");
-            return Integer.valueOf(parts[position]);
-        } catch (Exception e) {
-        }
-        return 0;
-    }
-
-    private void setSliderAction(int position, int action) {
-        String value = Settings.System.getString(getContentResolver(),
-                    Settings.System.BUTTON_EXTRA_KEY_MAPPING);
-        final String defaultValue = "5,3,0";
-
-        if (value == null) {
-            value = defaultValue;
-        } else if (value.indexOf(",") == -1) {
-            value = defaultValue;
-        }
-        try {
-            String[] parts = value.split(",");
-            parts[position] = String.valueOf(action);
-            String newValue = TextUtils.join(",", parts);
-            Settings.System.putString(getContentResolver(),
-                    Settings.System.BUTTON_EXTRA_KEY_MAPPING, newValue);
-            Log.d("BUTTON_EXTRA_KEY_MAPPING: ", newValue);
-        } catch (Exception e) {
-        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Remove padding around the listview
+            getListView().setPadding(0, 0, 0, 0);
+
+        setSummary(mSliderTop, KernelControl.KEYCODE_SLIDER_TOP);
+        setSummary(mSliderMiddle, KernelControl.KEYCODE_SLIDER_MIDDLE);
+        setSummary(mSliderBottom, KernelControl.KEYCODE_SLIDER_BOTTOM);
     }
 }

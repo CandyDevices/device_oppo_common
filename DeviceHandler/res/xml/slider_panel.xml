@@ -20,23 +20,25 @@
         android:title="@string/notification_slider">
 
         <ListPreference
-            android:key="slider_mode_top"
+            android:key="keycode_top_position"
+            android:dialogTitle="@string/action"
             android:title="@string/slider_mode_title_top"
-            android:entries="@array/slider_key_action_entries"
-            android:entryValues="@array/slider_key_action_values"
-            android:persistent="true" />
+            android:entries="@array/notification_slider_action_entries"
+            android:entryValues="@array/notification_slider_action_entry_values" />
+
         <ListPreference
-            android:key="slider_mode_center"
+            android:key="keycode_middle_position"
+            android:dialogTitle="@string/action"
             android:title="@string/slider_mode_title_center"
-            android:entries="@array/slider_key_action_entries"
-            android:entryValues="@array/slider_key_action_values"
-            android:persistent="true" />
+            android:entries="@array/notification_slider_action_entries"
+            android:entryValues="@array/notification_slider_action_entry_values" />
+
         <ListPreference
-            android:key="slider_mode_bottom"
+            android:key="keycode_bottom_position"
+            android:dialogTitle="@string/action"
             android:title="@string/slider_mode_title_bottom"
-            android:entries="@array/slider_key_action_entries"
-            android:entryValues="@array/slider_key_action_values"
-            android:persistent="true" />
+            android:entries="@array/notification_slider_action_entries"
+            android:entryValues="@array/notification_slider_action_entry_values" />
 
     </PreferenceCategory>
 
