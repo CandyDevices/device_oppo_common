@@ -22,6 +22,7 @@
     <string name="reset_message">Reset all entries to default?</string>
 
     <string name="screen_off_gesture_title">Screen off gestures</string>
+    <string name="screen_off_gesture_summary">Draw gestures on powered-off screen</string>
     <string name="group_applications">Applications</string>
     <string name="select_custom_app_title">Select custom application</string>
 
@@ -38,7 +39,8 @@
     <string name="gesture_double_tap_title">Double tap</string>
 
      <!-- Notification slider -->
-    <string name="notification_slider">Notification slider</string>
+    <string name="notification_slider">Additional buttons</string>
+    <string name="notification_slider_summary">Alert Slider Settings</string>
     <string name="action">Action</string>
 
     <string name="top_position">Top position</string>
