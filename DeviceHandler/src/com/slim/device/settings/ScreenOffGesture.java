@@ -47,7 +47,7 @@ import com.slim.device.R;
 import com.slim.device.util.ShortcutPickerHelper;
 
 public class ScreenOffGesture extends PreferenceFragment implements
-        OnPreferenceChangeListener, OnPreferenceClickListener,
+        Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener,
         ShortcutPickerHelper.OnPickListener {
 
     private static final String SETTINGS_METADATA_NAME = "com.android.settings";

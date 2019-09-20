@@ -16,18 +16,13 @@
 
 package com.slim.device.settings;
 
-import android.content.res.Resources;
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.SwitchPreference;
-import android.provider.Settings;
-import android.text.TextUtils;
-import android.view.MenuItem;
-import android.util.Log;
+
 
 import com.slim.device.KernelControl;
 import com.slim.device.R;
@@ -35,6 +30,10 @@ import com.slim.device.util.FileUtils;
 
 public class SliderSettings extends PreferenceActivity
         implements OnPreferenceChangeListener {
+
+    private static final String KEY_TOP_POSITION = "keycode_top_position";
+    private static final String KEY_MIDDLE_POSITION = "keycode_middle_position";
+    private static final String KEY_BOTTOM_POSITION = "keycode_bottom_position";
 
     private ListPreference mSliderTop;
     private ListPreference mSliderMiddle;
@@ -47,13 +46,13 @@ public class SliderSettings extends PreferenceActivity
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.slider_panel);
 
-        mSliderTop = (ListPreference) findPreference("keycode_top_position");
+        mSliderTop = (ListPreference) findPreference(KEY_TOP_POSITION);
         mSliderTop.setOnPreferenceChangeListener(this);
 
-        mSliderMiddle = (ListPreference) findPreference("keycode_middle_position");
+        mSliderMiddle = (ListPreference) findPreference(KEY_MIDDLE_POSITION);
         mSliderMiddle.setOnPreferenceChangeListener(this);
 
-        mSliderBottom = (ListPreference) findPreference("keycode_bottom_position");
+        mSliderBottom = (ListPreference) findPreference(KEY_BOTTOM_POSITION);
         mSliderBottom.setOnPreferenceChangeListener(this);
     }
 

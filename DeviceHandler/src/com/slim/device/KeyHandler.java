@@ -179,6 +179,7 @@ public class KeyHandler implements DeviceKeyHandler {
         }
 
         void observe() {
+/*
             mContext.getContentResolver().registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.HARDWARE_KEYS_DISABLE),
                     false, this);
@@ -186,6 +187,7 @@ public class KeyHandler implements DeviceKeyHandler {
                     Settings.System.DEVICE_PROXI_CHECK_ENABLED),
                     false, this);
             update();
+*/
         }
 
         @Override
@@ -194,10 +196,12 @@ public class KeyHandler implements DeviceKeyHandler {
         }
 
         public void update() {
+/*
             setButtonDisable(mContext);
             mUseProxiCheck = Settings.System.getIntForUser(
                     mContext.getContentResolver(), Settings.System.DEVICE_PROXI_CHECK_ENABLED, 1,
                     UserHandle.USER_CURRENT) == 1;
+*/
         }
     }
 
@@ -438,6 +442,7 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     public static void setButtonDisable(Context context) {
+/*
         mButtonDisabled = Settings.System.getIntForUser(
                 context.getContentResolver(), Settings.Secure.HARDWARE_KEYS_DISABLE, 0,
                 UserHandle.USER_CURRENT) == 1;
@@ -446,6 +451,7 @@ public class KeyHandler implements DeviceKeyHandler {
             FileUtils.writeValue(KEY_CONTROL_PATH, "1");
         else
             FileUtils.writeValue(KEY_CONTROL_PATH, "0");
+*/
     }
 
     public boolean isCameraLaunchEvent(KeyEvent event) {
